@@ -56,7 +56,11 @@ class OutlineClient:
         Raises:
             OutlineError: If the request fails
         """
-        url = f"{self.config.get_base_url()}/{endpoint}"
+        base = self.config.get_base_url()
+        # Ensure /api/ path is present
+        if not base.endswith('/api'):
+            base = f"{base}/api"
+        url = f"{base}/{endpoint}"
         headers = self.config.get_headers()
         payload = params or {}
 
